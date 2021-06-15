@@ -1,0 +1,100 @@
+# key bindings
+
+super + Return
+	termite
+
+# rofi
+super + space 
+	rofi -show drun
+
+# restart sxhkd
+super + shift + r
+	pkill sxhkd && sxhkd &
+
+# switch desktops
+super + {_,shift + }{1-7}
+	bspc {desktop -f,node -d} '^{1-7}'
+
+# focusing on windows
+super + {_,shift + }{h,j,k,l}
+	bspc node -{f,s} {west,south,north,east}
+
+super + {_,shift + }{Left, Down, Up, Right}
+	bspc node -{f,s} {west,south,north,east}
+
+alt + Tab
+	bspc node -f next.local
+
+
+#change layout
+
+alt + space
+	bspc desktop -l next
+
+
+# kill node
+super + q
+	bspc node -c
+
+# switch workspaces
+super + alt + {Left, Right}
+	bspc desktop -f {prev,next}.local
+
+alt + {k,l}
+	bspc desktop -f {prev,next}.local
+
+# fullscreen the node
+super + {shift + t,s,f}
+	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+
+# move window to another workspace
+super + ctrl + {Right,Left}
+	bspc node -d {next,prev} -f
+
+# toggle windowmodes
+super + {z,x,c,v}
+	bspc node -t '~{fullscreen,floating,tiled,pseudo_tiled}'
+
+# screenshots
+super + alt + p
+	maim -s /tmp/lox.png && xclip -selection clipboard -t image/png -i /tmp/lox.png && mv /tmp/lox.png ~/screenshots/$(date +%F_%T.png) && notify-send "screenshot taken"
+alt + p
+	maim /tmp/lox.png && xclip -selection clipboard -t image/png -i /tmp/lox.png && mv /tmp/lox.png ~/screenshots/$(date +%F_%T.png) && notify-send "screenshot taken"
+
+
+# resizing and moving 
+
+
+alt + ctrl {Left,Down,Up, Right}
+	/home/whiskey/.config/bspwm/bspwm_resize {west,south,north,east}
+
+alt + ctrl {h,j,k, l}
+	/home/whiskey/.config/bspwm/bspwm_resize {west,south,north,east}
+
+
+# media stuff
+
+XF86MonBrightnessUp
+	brightnessctl s 10%+
+
+XF86MonBrightnessDown
+	brightnessctl s 10%-
+
+XF86AudioRaiseVolume
+	amixer set Master 5%+
+
+XF86AudioLowerVolume
+	amixer set Master 5%-
+
+XF86AudioMute
+	amixer set Master toggle
+
+# locking
+
+super + Escape
+	slock
+
+# Modes
+
+ctrl + shift + {1, 2}
+	source {$HOME/.config/bspwm/bspwmrc, $HOME/.config/bspwm/bspwm_zerogap}

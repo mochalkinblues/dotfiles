@@ -1,0 +1,10 @@
+#! /bin/bash
+
+source $HOME/.config/polybar/launch_zerogap.sh
+
+bspc config window_gap 0
+bspc config top_padding 0
+bspc config normal_border_color "#353540"
+
+pkill picom
+picom --config $HOME/.config/picom/config_zerogap &
